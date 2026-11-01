@@ -56,7 +56,8 @@ To test the plugin:
 3. Approach the **entry area** of:
     - COX (e.g. raid door)
     - TOB (e.g. theatre entrance)
-    - TOA (e.g. invocation mirror)
+    - TOA (e.g. tomb entrance)
+    - TFA (e.g. raid door)
 4. You should see a **popup** and hear the **configured sound**.
 
 ---
