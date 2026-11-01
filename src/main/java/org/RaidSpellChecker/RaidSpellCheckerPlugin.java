@@ -44,8 +44,10 @@ public class RaidSpellCheckerPlugin extends Plugin
     // === Constants === //
     private static final WorldArea TOA_ZONE = new WorldArea(3357, 9113, 5, 4, 0);
     private static final WorldArea TOB_ZONE = new WorldArea(3670, 3215, 8, 8, 0);
+    private static final WorldArea TFA_ZONE = new WorldArea(4127, 5557, 6, 5, 0);
     private static final int TOA_REGION = 13454;
     private static final int TOB_REGION = 14642;
+    private static final int TFA_REGION = 16470;
 
     // === Dynamic State === //
     private WorldPoint lastPlayerLocation;
@@ -207,6 +209,47 @@ public class RaidSpellCheckerPlugin extends Plugin
         return selected;
     }
 
+    public List<String> getSelectedSpellsTFA()
+    {
+        RaidSpellCheckerConfig.Spellbook activeSpellbook = config.spellSelectionTFA();
+        List<String> selected = new ArrayList<>();
+        int currentSpellbook = client.getVarbitValue(Varbits.SPELLBOOK);
+        if (currentSpellbook != activeSpellbook.ordinal())
+        {
+            selected.add(WRONG_SPELLBOOK);
+            return selected;
+        }
+        switch (activeSpellbook)
+        {
+            case STANDARD:
+                if (config.useAirTFA()) selected.add(AIR_SPELL);
+                if (config.useEarthTFA()) selected.add(EARTH_SPELL);
+                if (config.useFireTFA()) selected.add(FIRE_SPELL);
+                if (config.useWaterTFA()) selected.add(WATER_SPELL);
+                break;
+            case ARCEUUS:
+                if (config.useDemonbaneTFA()) selected.add(DEMONBANE_SPELL);
+                if (config.useGraspTFA()) selected.add(GRASP_SPELL);
+                if (config.useThrallsTFA()) selected.add(THRALL_SPELL);
+                if (config.useDeathChargeTFA()) selected.add(DEATH_CHARGE_SPELL);
+                if (config.useMarkOfDarknessTFA()) selected.add(MARK_OF_DARKNESS_SPELL);
+                break;
+            case ANCIENT:
+                if (config.useSmokeTFA()) selected.add(SMOKE_SPELL);
+                if (config.useShadowTFA()) selected.add(SHADOW_SPELL);
+                if (config.useBloodTFA()) selected.add(BLOOD_SPELL);
+                if (config.useIceTFA()) selected.add(ICE_SPELL);
+                break;
+            case LUNAR:
+                if (config.useCureTFA()) selected.add(CURE_SPELL);
+                if (config.usePotShareTFA()) selected.add(POT_SHARE);
+                if (config.useVengeTFA()) selected.add(VENGE_SPELL);
+                if (config.useHumidifyTFA()) selected.add(HUMIDIFY_SPELL);
+                break;
+        }
+        return selected;
+    }
+
     @Subscribe
     public void onGameTick(GameTick event)
     {
@@ -219,7 +262,21 @@ public class RaidSpellCheckerPlugin extends Plugin
         }
         WorldPoint previous = lastPlayerLocation;
         lastPlayerLocation = currentPlayerLocation;
-        if (config.enableTOA() && !previous.equals(currentPlayerLocation) && !previous.isInArea(TOA_ZONE) && currentPlayerLocation.isInArea(TOA_ZONE) && previous.getRegionID() == TOA_REGION)
+        if (config.enableTFA() && !previous.equals(currentPlayerLocation) && !previous.isInArea(TFA_ZONE) && currentPlayerLocation.isInArea(TFA_ZONE) && previous.getRegionID() == TFA_REGION)
+        {
+            if (!processSpells(getSelectedSpellsTFA()))
+            {
+                if (config.enablePopup())
+                {
+                    if (wrongSpellbook) missingSpellOverlay.show(WRONG_SPELLBOOK, config.popupDuration());
+                    else if (noBookOfTheDead) missingSpellOverlay.show(NO_BOOK_OF_THE_DEAD, config.popupDuration());
+                    else missingSpellOverlay.show(MISSING_RUNES, config.popupDuration());
+                }
+                if (config.enableSoundEffect()) playSound(config.soundEffect());
+            }
+
+        }
+        else if (config.enableTOA() && !previous.equals(currentPlayerLocation) && !previous.isInArea(TOA_ZONE) && currentPlayerLocation.isInArea(TOA_ZONE) && previous.getRegionID() == TOA_REGION)
         {
             if (!processSpells(getSelectedSpellsTOA()))
             {

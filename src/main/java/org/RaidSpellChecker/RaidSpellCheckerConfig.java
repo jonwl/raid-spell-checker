@@ -29,6 +29,7 @@ public interface RaidSpellCheckerConfig extends Config
         EEEEEEEE,
         CUSTOM
     }
+
 //endregion
 //---------------------------------------------------------------------------------------------------------------------------------
 //region COX
@@ -977,7 +978,323 @@ public interface RaidSpellCheckerConfig extends Config
 
 //endregion
 //---------------------------------------------------------------------------------------------------------------------------------
-//region Notification
+//region TFA
+    @ConfigSection(
+            name = "TFA",
+            description = "Spells to use in TFA",
+            position = 16,
+            closedByDefault = true
+    )
+    String tfaSpellbookSection = "TFA Spellbook";
+
+    // === TFA Spellbook Selector === //
+    @ConfigItem(
+            position = 1,
+            keyName = "enableTFA",
+            name = "Enable",
+            description = "Enabled for TFA",
+            section = tfaSpellbookSection
+    )
+    default boolean enableTFA()
+    {
+        return true;
+    }
+
+    @ConfigItem(
+            position = 2,
+            keyName = "spellSelectionTFA",
+            name = "Spellbook selection",
+            description = "Spellbook to use for TFA",
+            section = tfaSpellbookSection
+    )
+    default Spellbook spellSelectionTFA()
+    {
+        return Spellbook.STANDARD;
+    }
+
+    // === TFA Standard Spells === //
+    @ConfigSection(
+            name = "TFA Standard Spells",
+            description = "Standard spells to use in TFA",
+            position = 17,
+            closedByDefault = true
+    )
+    String tfaStandardSpells = "TFA Standard Spells";
+
+    @ConfigItem(
+            keyName = "labelTFAStandard",
+            name = "Standard spell requirements for TFA.", description = "",
+            position = 1,
+            section = tfaStandardSpells)
+    default String labelTFAStandard()
+    {
+        return "";
+    }
+
+    @ConfigItem(
+            keyName = "useFireTFA",
+            name = "Fire Spell",
+            description = "Use a fire spell (Standard)",
+            position = 2,
+            section = tfaStandardSpells
+    )
+    default boolean useFireTFA()
+    {
+        return false;
+    }
+
+    @ConfigItem(
+            keyName = "useWaterTFA",
+            name = "Water Spell",
+            description = "Use a water spell (Standard)",
+            position = 3,
+            section = tfaStandardSpells
+    )
+    default boolean useWaterTFA()
+    {
+        return false;
+    }
+
+    @ConfigItem(
+            keyName = "useEarthTFA",
+            name = "Earth Spell",
+            description = "Use an earth spell (Standard)",
+            position = 4,
+            section = tfaStandardSpells
+    )
+    default boolean useEarthTFA()
+    {
+        return false;
+    }
+
+    @ConfigItem(
+            keyName = "useAirTFA",
+            name = "Air Spell",
+            description = "Use an air spell (Standard)",
+            position = 5,
+            section = tfaStandardSpells
+    )
+    default boolean useAirTFA()
+    {
+        return false;
+    }
+
+    // === TFA Arceuus Spells === //
+    @ConfigSection(
+            name = "TFA Arceuus Spells",
+            description = "Arceuus spells to use in TFA",
+            position = 18,
+            closedByDefault = true
+    )
+    String tfaArceuusSpells = "TFA Arcturus Spells";
+
+    @ConfigItem(
+            keyName = "labelTFAArceuus",
+            name = "Arceuus spell requirements for TFA.", description = "",
+            position = 1,
+            section = tfaArceuusSpells)
+    default String labelTFAArceuus()
+    {
+        return "";
+    }
+
+    @ConfigItem(
+            keyName = "useGraspTFA",
+            name = "Grasp Spell",
+            description = "Use a grasp spell (Arceuus)",
+            position = 2,
+            section = tfaArceuusSpells
+    )
+    default boolean useGraspTFA()
+    {
+        return false;
+    }
+
+    @ConfigItem(
+            keyName = "useDemonbaneTFA",
+            name = "Demonbane Spell",
+            description = "Use a demonbane spell (Arceuus)",
+            position = 3,
+            section = tfaArceuusSpells
+    )
+    default boolean useDemonbaneTFA()
+    {
+        return false;
+    }
+
+    @ConfigItem(
+            keyName = "useThrallsTFA",
+            name = "Thralls",
+            description = "Use a thrall spell (Arceuus)",
+            position = 4,
+            section = tfaArceuusSpells
+    )
+    default boolean useThrallsTFA()
+    {
+        return false;
+    }
+
+    @ConfigItem(
+            keyName = "useDeathChargeTFA",
+            name = "Death Charge",
+            description = "Use the death charge spell (Arceuus)",
+            position = 5,
+            section = tfaArceuusSpells
+    )
+    default boolean useDeathChargeTFA()
+    {
+        return false;
+    }
+
+    @ConfigItem(
+            keyName = "useMarkOfDarknessTFA",
+            name = "Mark of Darkness",
+            description = "Use the mark of darkness spell (Arceuus)",
+            position = 6,
+            section = tfaArceuusSpells
+    )
+    default boolean useMarkOfDarknessTFA()
+    {
+        return false;
+    }
+
+    // === TFA Ancient Spells === //
+    @ConfigSection(
+            name = "TFA Ancient Spells",
+            description = "Ancient spells to use in TFA",
+            position = 19,
+            closedByDefault = true
+    )
+    String tfaAncientSpells = "TFA Ancient Spells";
+
+    @ConfigItem(
+            keyName = "labelTFAAncient",
+            name = "Ancient spell requirements for TFA.", description = "",
+            position = 1,
+            section = tfaAncientSpells)
+    default String labelTFAAncient()
+    {
+        return "";
+    }
+
+    @ConfigItem(
+            keyName = "useSmokeTFA",
+            name = "Smoke Spell",
+            description = "Use a smoke spell (Ancient)",
+            position = 2,
+            section = tfaAncientSpells
+    )
+    default boolean useSmokeTFA()
+    {
+        return false;
+    }
+
+    @ConfigItem(
+            keyName = "useShadowTFA",
+            name = "Shadow Spell",
+            description = "Use a shadow spell (Ancient)",
+            position = 3,
+            section = tfaAncientSpells
+    )
+    default boolean useShadowTFA()
+    {
+        return false;
+    }
+
+    @ConfigItem(
+            keyName = "useBloodTFA",
+            name = "Blood Spell",
+            description = "Use a blood spell (Ancient)",
+            position = 4,
+            section = tfaAncientSpells
+    )
+    default boolean useBloodTFA()
+    {
+        return false;
+    }
+
+    @ConfigItem(
+            keyName = "useIceTFA",
+            name = "Ice Spell",
+            description = "Use an ice spell (Ancient)",
+            position = 5,
+            section = tfaAncientSpells
+    )
+    default boolean useIceTFA()
+    {
+        return false;
+    }
+
+    // === TFA Lunar Spells === //
+    @ConfigSection(
+            name = "TFA Lunar Spells",
+            description = "Lunar spells to use in TFA",
+            position = 20,
+            closedByDefault = true
+    )
+    String tfaLunarSpells = "TFA Lunar Spells";
+
+    @ConfigItem(
+            keyName = "labelTFALunar",
+            name = "Lunar spell requirements for TFA.", description = "",
+            position = 1,
+            section = tfaLunarSpells)
+    default String labelTFALunar()
+    {
+        return "";
+    }
+
+    @ConfigItem(
+            keyName = "useCureTFA",
+            name = "Cure Spells",
+            description = "Use a cure spell (Lunar)",
+            position = 2,
+            section = tfaLunarSpells
+    )
+    default boolean useCureTFA()
+    {
+        return false;
+    }
+
+    @ConfigItem(
+            keyName = "usePotShareTFA",
+            name = "Pot Share",
+            description = "Use a potshare spell (Lunar)",
+            position = 3,
+            section = tfaLunarSpells
+    )
+    default boolean usePotShareTFA()
+    {
+        return false;
+    }
+
+    @ConfigItem(
+            keyName = "useVengeTFA",
+            name = "Venge",
+            description = "Use the venge spell (Lunar)",
+            position = 4,
+            section = tfaLunarSpells
+    )
+    default boolean useVengeTFA()
+    {
+        return false;
+    }
+
+    @ConfigItem(
+            keyName = "useHumidifyTFA",
+            name = "Humidify",
+            description = "Use the humidify spell (Lunar)",
+            position = 5,
+            section = tfaLunarSpells
+    )
+    default boolean useHumidifyTFA()
+    {
+        return false;
+    }
+
+//endregion
+//---------------------------------------------------------------------------------------------------------------------------------
+// region Notification
     @ConfigSection(
             name = "Notification",
             description = "Notification Settings",
@@ -1104,4 +1421,5 @@ public interface RaidSpellCheckerConfig extends Config
         return new Color(255, 255, 255, 200); // semi-transparent white by default
     }
 //endregion
+//---------------------------------------------------------------------------------------------------------------------------------
 }
