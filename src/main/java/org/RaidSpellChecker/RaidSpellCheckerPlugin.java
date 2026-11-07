@@ -23,9 +23,14 @@ import java.util.List;
 import static org.RaidSpellChecker.Spellbook.*;
 
 @Slf4j
-@PluginDescriptor(name = "Raid Spell Checker")
+@PluginDescriptor(
+        name = "Raid Spell Checker",
+        internalName = "raid-spell-checker",
+        legacyDataDirectory = "raid-spell-checker-sounds"
+)
 public class RaidSpellCheckerPlugin extends Plugin
 {
+
     @Inject
     private Client client;
 
@@ -69,7 +74,7 @@ public class RaidSpellCheckerPlugin extends Plugin
     protected void startUp() throws Exception
     {
         log.info("Raid Rune Checker started!");
-        RaidSpellCheckerFileManager.ensureDirs();
+        soundPlayer.initialize(getPluginDirectory());
         overlayManager.add(missingSpellOverlay);
     }
 
